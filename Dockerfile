@@ -15,8 +15,7 @@ RUN poetry config virtualenvs.create false && poetry install
 #Copies application into docker image
 COPY /backend/ /app
 
-COPY /frontend/dist /app/backend/static/dist
-
+COPY /frontend/dist/ /app/static/dist
 
 #It will expose the FastAPI application on port `8000` inside the container
 EXPOSE 8000
