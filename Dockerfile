@@ -7,17 +7,19 @@ WORKDIR /app
 RUN pip install poetry==1.5.1
 
 #It copies the framework and the dependencies for the FastAPI application into the working directory
-COPY poetry.lock pyproject.toml /app/
+COPY backend/poetry.lock backend/pyproject.toml /app/
 
 #Turn of creation of virtualenv(docker is already isolated) and install the framework and the dependencies
 RUN poetry config virtualenvs.create false && poetry install
 
 #Copies application into docker image
-COPY /app /app
+COPY /backend/ /app
+
+COPY /frontend/dist /app/backend/static/dist
 
 
 #It will expose the FastAPI application on port `8000` inside the container
 EXPOSE 8000
 
 #It is the command that will start and run the FastAPI application container
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
