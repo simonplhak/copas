@@ -23,4 +23,4 @@ stop:
 
 
 build-frontend:
-	cd frontend && ng build
+	cd frontend && ng build --base-href /static/
