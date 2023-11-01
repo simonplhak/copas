@@ -1,0 +1,6 @@
+.idea
+.gitlab-ci.yml
+.gitignore
+service.yml
+.git
+app/env
