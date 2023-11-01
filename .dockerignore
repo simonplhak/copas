@@ -3,4 +3,5 @@
 .gitignore
 service.yml
 .git
-app/env
+backend/app/env
+frontend/app/node_modules
