@@ -1,0 +1,16 @@
+master:
+  services:
+    - juice-shop
+
+teams:
+  - name: players
+    size: 1
+    roles:
+      - name: player
+        see:
+          - master
+
+services:
+  - name: juice-shop
+    run: docker run --rm -p 3000:3000 --name juice-shop -d bkimminich/juice-shop
+    port: 3000
