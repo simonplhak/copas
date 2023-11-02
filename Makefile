@@ -16,7 +16,7 @@ build:
 	docker build . -t copas:$(VERSION)
 
 run:
-	docker run --name copas -p 8100:8000 copas:$(VERSION)
+	docker run --name copas -p 8100:8000 -d copas:$(VERSION)
 
 stop:
 	docker stop copas && docker rm copas
