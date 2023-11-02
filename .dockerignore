@@ -6,3 +6,5 @@ service.yml
 backend/app/env
 frontend/node_modules
 backend/static/dist
+backend/storage.json
+backend/app/storage.db
