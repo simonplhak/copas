@@ -34,7 +34,11 @@ minikube service copas-service --url
 - Document the project at the end
 - Start by creating the game and then abstract it
 - Use decorators to determine which endpoints (chat/infrastructure_overview) to allow
-
+- use sqlalchemy instead peewee(asynchronous)
+- remove storage from the project
+- split models which differs for different endpoints
+- improve file structure of storage files
+- use docker:dind instead mounting socket - can be used on any os
 ## Goal
 
 Create an infrastructure that facilitates communication during educational games played in a classroom setting.
