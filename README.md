@@ -39,6 +39,11 @@ minikube service copas-service --url
 - split models which differs for different endpoints
 - improve file structure of storage files
 - use docker:dind instead mounting socket - can be used on any os
+- use logging
+- create env from scratch and use only requirements - poetry sucks
+- divide logic of agent initialization and service initialization
+- remove dind -> split into two containers
+- possibility to run multiple containers of one image (e.g. 12 containers of juice-shop)
 ## Goal
 
 Create an infrastructure that facilitates communication during educational games played in a classroom setting.
