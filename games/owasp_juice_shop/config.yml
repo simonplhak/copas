@@ -12,5 +12,7 @@ teams:
 
 services:
   - name: juice-shop
-    run: docker run --rm -p 3000:3000 --name juice-shop -d bkimminich/juice-shop
+    port: 3000
+
+  - name: rootthebox
     port: 3000
