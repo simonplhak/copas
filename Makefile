@@ -13,6 +13,8 @@ unlink-frontend:
 	rm templates/index.html
 	rm -r "frontend"
 
+clear:
+	curl -X POST localhost:8000/api/-/clear/
 
 build:
 	docker build . -t copas:$(VERSION)
