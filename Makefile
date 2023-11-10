@@ -1,5 +1,10 @@
 VERSION ?= latest
 current_dir := $(shell pwd)
+ROLE ?= master
+
+
+role:
+	python3 manage.py role $(ROLE)
 
 
 update:
