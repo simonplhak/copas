@@ -1,6 +1,6 @@
-[submodule "frontend"]
-	path = frontend
-	url = git@gitlab:plhak.s/copas_games_frontend.git
 [submodule "backend"]
 	path = backend
 	url = git@gitlab:plhak.s/copas-game-infrastructure.git
+[submodule "frontend"]
+	path = frontend
+	url = git@gitlab:plhak.s/copas-frontend.git
