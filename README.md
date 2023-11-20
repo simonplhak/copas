@@ -35,15 +35,113 @@ minikube service copas-service --url
 - Start by creating the game and then abstract it
 - Use decorators to determine which endpoints (chat/infrastructure_overview) to allow
 - use sqlalchemy instead peewee(asynchronous)
-- remove storage from the project
 - split models which differs for different endpoints
-- improve file structure of storage files
-- use docker:dind instead mounting socket - can be used on any os
 - use logging
-- create env from scratch and use only requirements - poetry sucks
-- divide logic of agent initialization and service initialization
-- remove dind -> split into two containers
 - possibility to run multiple containers of one image (e.g. 12 containers of juice-shop)
+- by default members of a team can see each other
+- `get_agents` endpoint returns all agents in flat form
+- `get_agents` -> master then creates teams and distributes agents into teams
+- `get_teams` -> returns all agents distributed into teams in following format:
+
+1) More teams
+
+```json
+{
+  "master": {
+    "id": "master",
+    "ip": "192.168.0.111"
+  },
+  "teams": [
+    {
+      "name": "team_1",
+      "agents": [
+        {
+          "name": "agent_1",
+          "ip": "192.168.0.112",
+          "role": "player"
+        }
+      ]
+    },
+    {
+      "name": "team_2",
+      "agents": [
+        {
+          "name": "agent_2",
+          "ip": "192.168.0.113",
+          "role": "player"
+        }
+      ]
+    }
+  ]
+}
+```
+
+2) one team
+
+```json
+{
+  "master": {
+    "id": "master",
+    "ip": "192.168.0.111"
+  },
+  "teams": [
+    {
+      "name": "players",
+      "agents": [
+        {
+          "name": "agent_1",
+          "ip": "192.168.0.112",
+          "role": "player"
+        },
+        {
+          "name": "agent_2",
+          "ip": "192.168.0.113",
+          "role": "player"
+        }
+      ]
+    }
+  ]
+}
+```
+3) more teams, multiple roles
+
+```json
+{
+  "master": {
+    "id": "master",
+    "ip": "192.168.0.111"
+  },
+  "teams": [
+    {
+      "name": "attackers",
+      "agents": [
+        {
+          "name": "agent_1",
+          "ip": "192.168.0.112",
+          "role": "attacker"
+        }
+      ]
+    },
+    {
+      "name": "defenders",
+      "agents": [
+        {
+          "name": "agent_2",
+          "ip": "192.168.0.113",
+          "role": "defender"
+        },
+        {
+          "name": "agent_2",
+          "ip": "192.168.0.113",
+          "role": "defender_main"
+        }
+      ]
+    }
+  ]
+}
+```
+
+
 ## Goal
 
 Create an infrastructure that facilitates communication during educational games played in a classroom setting.
@@ -74,6 +172,8 @@ which they can customize using configuration files. The infrastructure should en
 - Make a checkpoint to restore the game if necessary
 - Display the status (green/red) of current services
 - Share files for all agents (initially as read-only access)
+- Every user(including master) at the start of the game chooses which image he wants and `copas` will pull it
+  from docker hub and run it. `copas` may pull more docker images if necessary(needed services).
 
 ### Master:
 
