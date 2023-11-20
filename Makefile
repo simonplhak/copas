@@ -1,10 +1,15 @@
 VERSION ?= latest
 current_dir := $(shell pwd)
 ROLE ?= master
-
+NAME ?= player0
 
 role:
 	python3 manage.py role $(ROLE)
+
+create-agent:
+	$(MAKE) role ROLE=player
+	curl -X POST -H "Content-Type: application/json" -d '{"name":"$(NAME)"}' localhost:8000/api/agent/
+	$(MAKE) role
 
 
 update:
