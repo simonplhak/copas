@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 repo = Path(__file__).resolve().parent
 backend_env = repo / 'backend' / '.env'
-frontend_env = repo / '..' / 'copas-frontend' / '.env'  # todo will be change in the future 
+frontend_env = repo / 'frontend' / '.env'  # todo will be change in the future
 
 
 def set_role(role: str, path: Path):
