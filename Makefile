@@ -42,7 +42,7 @@ build-frontend:
 
 run-juice-shop-web:
 	docker run --name juice-shop \
-	-p 3000:3000 \
+	-p 3001:3000 \
 	-e "NODE_ENV=ctf" \
  	--rm \
  	-d \
