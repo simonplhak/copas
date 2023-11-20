@@ -24,7 +24,7 @@ unlink-frontend:
 	rm -r "frontend"
 
 clear:
-	curl -X POST localhost:8000/api/-/clear/
+	curl -X POST localhost:8000/api/master_backend/-/clear/
 
 build:
 	docker build . -t copas:$(VERSION)
