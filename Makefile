@@ -17,7 +17,7 @@ update:
 
 link-frontend:
 	mkdir -p "backend/static/"
-	ln -s frontend/dist/ backend/dist
+	ln -s ../frontend/out/ backend/
 
 unlink-frontend:
 	rm templates/index.html
