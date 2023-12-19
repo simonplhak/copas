@@ -27,11 +27,26 @@ clear:
 	curl -X POST localhost:8000/api/master_backend/-/clear/
 
 build:
-	docker build . -t copas:$(VERSION)
+	docker build . -t copas:latest
 
-run:
-	docker run --rm --name copas -p 8100:8000 -d copas:$(VERSION)
+run-master:
+	docker run \
+		--rm \
+		--name copas \
+		-p 8001:8000 \
+		-v /home/simon/Documents/bc/copas/games/owasp_juice_shop/config.yml:/app/config.yml \
+		-e ROLE=master \
+		--network=copas_network \
+		copas:latest
 
+run-player:
+	docker run \
+		--rm \
+		--name copas2 \
+		-p 8003:8000 \
+		-e HTTP_PORT=8003 -e MASTER_HTTP_PORT=8000 \
+		--network=copas_network \
+		copas:latest
 stop:
 	docker stop copas
 
