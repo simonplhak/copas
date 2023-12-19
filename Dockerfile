@@ -1,3 +1,20 @@
+FROM node:21.4.0 as frontend_builder
+
+# Set the working directory
+WORKDIR /frontend
+
+# Copy package.json and package-lock.json
+COPY frontend/package*.json /frontend
+
+# Install Next.js and dependencies
+RUN npm install
+
+# Copy the rest of the source code
+COPY frontend /frontend
+
+# Build the Next.js project for production use
+RUN npm run build
+
 #It instructs Docker Engine to use official python:3.10 as the base image
 FROM python:3.10
 
@@ -15,13 +32,14 @@ RUN poetry config virtualenvs.create false && poetry install
 #Copies application into docker image
 COPY /backend/ /app
 
-COPY /frontend/dist/ /app/static/dist
+# Copy the built Next.js files from the builder image
+COPY --from=frontend_builder /frontend/out /app/out
 
 #It will expose the FastAPI application on port `8000` inside the container
 EXPOSE 8000
 
-RUN export PRODUCTION=1
-ENV PRODUCTION=1
-
+ENV PRODUCTION=true
+ENV HOST="http://localhost:8000/api"
+ENV MASTER_PORT="8000"
 #It is the command that will start and run the FastAPI application container
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
