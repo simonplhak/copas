@@ -16,7 +16,13 @@ COPY frontend /frontend
 RUN npm run build
 
 #It instructs Docker Engine to use official python:3.10 as the base image
-FROM python:3.10
+FROM ubuntu:22.04
+
+# install Python 3.10
+RUN apt update && \
+    apt install -y software-properties-common && \
+    add-apt-repository ppa:deadsnakes/ppa && \
+    apt install -y python3.10 python3-pip
 
 #It creates a working directory(app) for the Docker image and container
 WORKDIR /app
@@ -42,4 +48,4 @@ ENV PRODUCTION=true
 ENV HOST="http://localhost:8000/api"
 ENV MASTER_PORT="8000"
 #It is the command that will start and run the FastAPI application container
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--app-dir", "/app"]
