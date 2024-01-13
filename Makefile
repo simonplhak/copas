@@ -54,7 +54,7 @@ stop:
 
 
 build-frontend:
-	cd frontend && ng build --base-href /static/
+	cd frontend && next build
 
 
 run-juice-shop-web:
