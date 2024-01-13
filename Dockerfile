@@ -46,6 +46,7 @@ EXPOSE 8000
 
 ENV PRODUCTION=true
 ENV HOST="http://localhost:8000/api"
-ENV MASTER_PORT="8000"
+ENV HTTP_PORT="8000"
+ENV MASTER_HTTP_PORT="8000"
 #It is the command that will start and run the FastAPI application container
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--app-dir", "/app"]
+CMD uvicorn app.main:app --host 0.0.0.0 --app-dir /app --port $HTTP_PORT

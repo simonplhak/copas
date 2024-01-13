@@ -33,9 +33,11 @@ run-master:
 	docker run \
 		--rm \
 		--name copas \
-		-p 8001:8000 \
+		-p 8001:8001 \
 		-v /home/simon/Documents/bc/copas/games/owasp_juice_shop/config.yml:/app/config.yml \
 		-e ROLE=master \
+		-e HTTP_PORT=8001 \
+		-e MASTER_HTTP_PORT=8001 \
 		--network=copas_network \
 		copas:latest
 
@@ -43,7 +45,7 @@ run-player:
 	docker run \
 		--rm \
 		--name copas2 \
-		-p 8003:8000 \
+		-p 8003:8003 \
 		-e HTTP_PORT=8003 -e MASTER_HTTP_PORT=8000 \
 		--network=copas_network \
 		copas:latest
