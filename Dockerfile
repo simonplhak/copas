@@ -24,6 +24,9 @@ RUN apt update && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt install -y python3.10 python3-pip
 
+# install supervisord for running multiple processes
+RUN pip install supervisor
+
 #It creates a working directory(app) for the Docker image and container
 WORKDIR /app
 
@@ -44,9 +47,14 @@ COPY --from=frontend_builder /frontend/out /app/out
 #It will expose the FastAPI application on port `8000` inside the container
 EXPOSE 8000
 
+# set default env variables
 ENV PRODUCTION=true
 ENV HOST="http://localhost:8000/api"
 ENV HTTP_PORT="8000"
 ENV MASTER_HTTP_PORT="8000"
-#It is the command that will start and run the FastAPI application container
-CMD uvicorn app.main:app --host 0.0.0.0 --app-dir /app --port $HTTP_PORT
+
+# Copy the supervisord configuration file
+COPY supervisord.conf /etc/supervisord.conf
+
+# start supervisord
+CMD supervisord -c /etc/supervisord.conf
