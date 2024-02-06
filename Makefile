@@ -1,10 +1,6 @@
 VERSION ?= latest
 current_dir := $(shell pwd)
-ROLE ?= master
 NAME ?= player0
-
-role:
-	python3 manage.py role $(ROLE)
 
 create-agent:
 	$(MAKE) role ROLE=player
@@ -24,7 +20,7 @@ unlink-frontend:
 	rm -r "frontend"
 
 clear:
-	curl -X POST localhost:8000/api/master_backend/-/clear/
+	curl -X POST localhost:8000/api/-/clear/
 
 build:
 	docker build . -t copas:latest
@@ -45,9 +41,9 @@ run-player:
 	docker run \
 		--rm \
 		--name copas2 \
-		-p 8003:8003 \
-		-e HTTP_PORT=8003 -e MASTER_HTTP_PORT=8000 \
-		--network=copas_network \
+		-p 8004:8004 \
+		-e HTTP_PORT=8004 \
+		--network=copas \
 		copas:latest
 stop:
 	docker stop copas
@@ -67,44 +63,3 @@ run-juice-shop-web:
 
 stop-juice-shop-web:
 	docker stop juice-shop
-
-build-rtb:
-	cd game_utils/rootthebox && docker build --progress=plain . -t rootthebox:latest
-
-build-rtb-juice-shop:
-	cd games/owasp_juice_shop && docker build --progress=plain . -t rtb-juice-shop:latest
-
-run-rtb-juice-shop:
-	docker network create rootthebox
-	docker run --name memcached \
-	--network rootthebox \
-	-p 11212:11211 \
-	--rm \
-	-d \
-	memcached:latest
-	 docker run --name rootthebox \
- 	--network rootthebox \
- 	-p 8888:8888 \
- 	--rm \
- 	-d \
- 	rtb-juice-shop:latest
-
-stop-rtb-juice-shop:
-	docker stop rootthebox
-	docker stop memcached
-	docker network rm rootthebox
-
-run-juice-shop:
-	docker run --rm \
-	--name copas \
-	-p 8100:8000 \
-	-d \
-	-v /home/simon/Documents/bc/copas/games/owasp_juice_shop:/app/config \
-	copas:$(VERSION)
-	$(MAKE) run-juice-shop-web
-	$(MAKE) run-rtb-juice-shop
-
-stop-juice-shop:
-	$(MAKE) stop \
-	$(MAKE) stop-juice-shop-web
-	$(MAKE) stop-rtb-juice-shop
