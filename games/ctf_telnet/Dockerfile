@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM copas:latest
 WORKDIR /
 RUN apk update
 RUN apk add busybox-extras
