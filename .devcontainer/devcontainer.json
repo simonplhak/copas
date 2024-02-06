@@ -1,0 +1,28 @@
+{
+  "name": "copas",
+  "image": "ubuntu:22.04",
+  "extensions": [
+    "ms-python.python"
+  ],
+  "settings": {
+    "pythonPath": "/usr/bin/python3.10"
+  },
+  "workspaceFolder": "/copas-docker",
+//  "mounts": [
+//    "source=backend,target=/workspace/backend",
+//    "source=frontend,target=/workspace/frontend"
+//  ],
+  "remoteUser": "vscode",
+  "forwardPorts": [8006, 8007, 3306],
+  "runArgs": ["--network=copas"],
+  "containerEnv": {
+    "HTTP_PORT": "8006",
+    "ROLE": "master",
+    "CTFD_PORT": "8007",
+    "CTFD_CONFIG": "/copas-docker/games/owasp_juice_shop/owasp_config.zip",
+    "CTFD_ADMIN_TOKEN": "ctfd_c00f4d5832504faa924629d90f7e885db07faa03cd1deafe26e2cf05983611a4"
+  },
+  "postCreateCommand": "apt-get update && apt-get install -y python3-pip && cd /workspace/backend && python3.10 -m venv venv && source venv/bin/activate && pip install poetry && poetry install && cd /workspace/frontend && npm install",
+  "runServices": ["git", "supervisor", "software-properties-common", "mariadb-server", "mariadb-client"],
+  "settingsPath": "/workspace/.vscode/settings.json"
+}
