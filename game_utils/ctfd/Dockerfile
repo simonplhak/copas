@@ -18,8 +18,6 @@ COPY ctfd.entrypoint.sh /ctfd/ctfd.entrypoint.sh
 
 ENV MYSQL_USER=ctfd
 ENV MYSQL_PASSWORD=ctfd
-ENV MYSQL_ROOT_USER=ctfd
-ENV MYSQL_ROOT_PASSWORD=ctfd
 ENV MYSQL_DATABASE=ctfd
 ENV DATABASE_URL="mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd"
 
