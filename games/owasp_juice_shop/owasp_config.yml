@@ -1,0 +1,6 @@
+ctfFramework: CTFd
+juiceShopUrl: http://localhost:3000
+ctfKey: super-key
+insertHints: free
+insertHintUrls: free
+insertHintSnippets: free
