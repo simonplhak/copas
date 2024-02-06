@@ -49,7 +49,6 @@ EXPOSE 8000
 
 # set default env variables
 ENV PRODUCTION=true
-ENV HOST="http://localhost:8000/api"
 ENV HTTP_PORT="8000"
 ENV MASTER_HTTP_PORT="8000"
 
