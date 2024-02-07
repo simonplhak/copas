@@ -21,4 +21,7 @@ ENV MYSQL_PASSWORD=ctfd
 ENV MYSQL_DATABASE=ctfd
 ENV DATABASE_URL="mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd"
 
+# fix: add comment to empty js files, otherwise gunicorn will scream
+RUN find /ctfd/CTFd/themes -type f -empty -name "*.js" -exec bash -c 'echo "// fix" >> "$0"' {} \;
+
 WORKDIR /app
