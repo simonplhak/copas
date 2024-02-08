@@ -50,7 +50,9 @@ stop:
 
 
 build-frontend:
-	cd frontend && next build
+	export PRODUCTION=true
+	cd frontend && npm run build
+	export PRODUCTION=false
 
 
 run-juice-shop-web:
