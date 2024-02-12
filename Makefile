@@ -45,6 +45,16 @@ run-player:
 		-e HTTP_PORT=8004 \
 		--network=copas \
 		copas:latest
+
+run-player-2:
+	docker run \
+		--rm \
+		--name copas3 \
+		-p 8003:8003 \
+		-e HTTP_PORT=8003 \
+		--network=copas \
+		copas:latest
+
 stop:
 	docker stop copas
 
