@@ -22,7 +22,7 @@ FROM ubuntu:22.04
 RUN apt update && \
     apt install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install -y python3.10 python3-pip
+    apt install -y python3.10 python3-pip inetutils-ping git python3.10-venv curl
 
 # install supervisord for running multiple processes
 RUN pip install supervisor
