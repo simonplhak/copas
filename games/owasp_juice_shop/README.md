@@ -2,25 +2,23 @@
 
 https://github.com/juice-shop/juice-shop
 
-### Setup
+## Setup
 ALl commands must be run from the root of the repository.
 
-1) Build rootthebox:latest image
-```shell
-make build-rtb
+### Master
+```bash
+make build-master
+make run-master
 ```
 
-2) Build rootthebox for juice shop
-```shell
-make build-rtb-juice-shop
+### Player
+```bash
+make build-player
+make run-player
 ```
 
-3) Run juice shop(copas infrastructure, juice shop, rootthebox)
-```shell
-make run-juice-shop
-```
+### secrets
 
-4) Stop juice shop
-```shell
-make stop-juice-shop
-```
+Do not have to include as it is already defined in master.Dockerfile.
+
+CTF_ADMIN_TOKEN=ctfd_36a898496644fba42c3c29234662b454e09d48ddeeb8d279f7b279488fbc5d71
