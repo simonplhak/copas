@@ -19,3 +19,5 @@ frontend/out
 frontend/node_modules
 frontend/.env
 frontend/.git
+backend/.idea
+backend/*.log
