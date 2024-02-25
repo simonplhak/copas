@@ -1,10 +1,8 @@
 FROM copas:latest
 RUN apt update && apt upgrade -y && \
-    apt install -y software-properties-common supervisor && \
-    apt install -y mariadb-server mariadb-client
-RUN mkdir -p /run/mysqld
+    apt install -y mariadb-server mariadb-client \
 
-RUN apt install git python3.10-venv -y
+RUN mkdir -p /run/mysqld
 
 WORKDIR /ctfd
 
@@ -20,6 +18,8 @@ ENV MYSQL_USER=ctfd
 ENV MYSQL_PASSWORD=ctfd
 ENV MYSQL_DATABASE=ctfd
 ENV DATABASE_URL="mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd"
+ENV CTFD=true
+
 
 # fix: add comment to empty js files, otherwise gunicorn will scream
 RUN find /ctfd/CTFd/themes -type f -empty -name "*.js" -exec bash -c 'echo "// fix" >> "$0"' {} \;
