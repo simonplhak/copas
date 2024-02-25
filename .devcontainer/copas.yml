@@ -20,7 +20,7 @@ root: /copas-docker
 # on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-pre_window: export ROLE=master; export HTTP_PORT=8006; export MASTER_HTTP_PORT=8006; export PRODUCTION=true; export MYSQL_USER=ctfd; export MYSQL_PASSWORD=ctfd; export MYSQL_DATABASE=ctfd; export DATABASE_URL="mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd"; export CTFD_PORT=8007; export CONFIG=/copas-docker/games/owasp_juice_shop/config.yml;
+pre_window: export ROLE=master; export HTTP_PORT=8006; export MASTER_HTTP_PORT=8006; export PRODUCTION=true; export MYSQL_USER=ctfd; export MYSQL_PASSWORD=ctfd; export MYSQL_DATABASE=ctfd; export DATABASE_URL="mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd"; export CTFD_PORT=8007;;
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -41,12 +41,15 @@ pre_window: export ROLE=master; export HTTP_PORT=8006; export MASTER_HTTP_PORT=8
 # post: tmux -CC attach -t tree_passport
 
 windows:
-  - programs:
+  - copas:
       layout: even-horizontal
       # Synchronize all panes of this window, can be enabled before or after the pane commands run.
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
         - cd backend && source docker_env/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port $HTTP_PORT --reload
+  - ctfd:
+      layout: even-horizontal
+      panes:
         - mariadbd --user=root
-        - cd /ctfd && source env/bin/activate && gunicorn wsgi:app --bind "0.0.0.0:$CTFD_PORT" --chdir /ctfd --workers 4
+        - cd /ctfd && source env/bin/activate && gunicorn wsgi:app --bind "0.0.0.0:$CTFD_PORT" --chdir /ctfd
