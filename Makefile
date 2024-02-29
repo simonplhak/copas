@@ -30,7 +30,7 @@ run-master:
 		--rm \
 		--name copas \
 		-p 8001:8001 \
-		-v /home/simon/Documents/bc/copas/games/owasp_juice_shop/config.yml:/app/config.yml \
+		-v /home/simon/Documents/bc/copas/games/ctf_movie_game_night/config.yml:config.yml \
 		-e ROLE=master \
 		-e HTTP_PORT=8001 \
 		-e MASTER_HTTP_PORT=8001 \
@@ -43,6 +43,7 @@ run-player:
 		--name copas2 \
 		-p 8004:8004 \
 		-e HTTP_PORT=8004 \
+		-v /home/simon/Documents/bc/copas/games/ctf_movie_game_night/config.yml:config.yml \
 		--network=copas \
 		copas:latest
 
@@ -51,6 +52,7 @@ run-player-2:
 		--rm \
 		--name copas3 \
 		-p 8003:8003 \
+		-v /home/simon/Documents/bc/copas/games/ctf_movie_game_night/config.yml:config.yml \
 		-e HTTP_PORT=8003 \
 		--network=copas \
 		copas:latest
