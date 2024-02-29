@@ -4,6 +4,7 @@
 service.yml
 .git
 backend/app/env
+backend/app/docker_env
 backend/out
 backend/storage.json
 backend/storage.db
