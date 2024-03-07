@@ -1,0 +1,33 @@
+teams:
+  - name: movie
+    roles:
+      - name: movie_main
+        services:
+          - movie_web
+      - name: movie
+  - name: game
+    roles:
+      - name: game_main
+        services:
+          - game_web
+      - name: game
+
+services:
+  - name: movie_web
+    run: "supervisorctl start movie_web"
+    port: 8003
+  - name: game_web
+    run: "supervisorctl start game_web"
+    port: 8003
+
+events:
+  - name: create_movie_challenge
+    trigger: "start"
+  - name: create_game_challenge
+    trigger: "start"
+  - name: update_movie_flag
+    trigger: "time"
+    timeout: 600
+  - name: update_game_flag
+    trigger: "time"
+    timeout: 600
