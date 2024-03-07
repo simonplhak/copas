@@ -3,8 +3,6 @@ FROM copas.ctfd:latest
 RUN curl -s https://deb.nodesource.com/setup_18.x | /bin/sh && apt install -y nodejs
 
 WORKDIR /juice-shop
-#COPY juice-shop-16.0.0_node18_linux_x64.tgz /juice-shop/juice-shop.tgz
-#RUN tar -xvzf /juice-shop/juice-shop.tgz && rm /juice-shop/juice-shop.tgz && mv /juice-shop/juice-shop_16.0.0/* /juice-shop
 RUN git clone https://github.com/juice-shop/juice-shop.git --depth 1 /juice-shop
 RUN npm i
 
