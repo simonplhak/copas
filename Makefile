@@ -2,12 +2,6 @@ VERSION ?= latest
 current_dir := $(shell pwd)
 NAME ?= player0
 
-create-agent:
-	$(MAKE) role ROLE=player
-	curl -X POST -H "Content-Type: application/json" -d '{"name":"$(NAME)"}' localhost:8000/api/agent/
-	$(MAKE) role
-
-
 update:
 	git submodule update --remote --recursive
 
@@ -28,7 +22,7 @@ unlink-ctfd:
 	pip install -y ctfd-sdk
 
 clear:
-	curl -X POST localhost:8000/api/-/clear/
+	curl -X POST localhost:8006/api/-/clear/
 
 build:
 	docker build . -t copas:latest
@@ -38,7 +32,7 @@ run-master:
 		--rm \
 		--name copas \
 		-p 8001:8001 \
-		-v /home/simon/Documents/bc/copas/app/config.yml:/app/config.yml \
+		-v /home/simon/Documents/bc/copas/backend/config.yml:/app/config.yml \
 		-e ROLE=master \
 		-e HTTP_PORT=8001 \
 		-e MASTER_HTTP_PORT=8001 \
@@ -48,39 +42,23 @@ run-master:
 run-player:
 	docker run \
 		--rm \
-		--name copas2 \
+		--name copas.player.0 \
 		-p 8004:8004 \
-		-e HTTP_PORT=8004 \
+		-e HTTP_PORT=8002 \
 		--network=copas \
 		copas:latest
 
 run-player-2:
 	docker run \
 		--rm \
-		--name copas3 \
+		--name copas.player.1 \
 		-p 8003:8003 \
-		-v /home/simon/Documents/bc/copas/games/ctf_movie_game_night/config.yml:config.yml \
 		-e HTTP_PORT=8003 \
 		--network=copas \
 		copas:latest
-
-stop:
-	docker stop copas
 
 
 build-frontend:
 	export PRODUCTION=true
 	cd frontend && npm run build
 	export PRODUCTION=false
-
-
-run-juice-shop-web:
-	docker run --name juice-shop \
-	-p 3001:3000 \
-	-e "NODE_ENV=ctf" \
- 	--rm \
- 	-d \
- 	bkimminich/juice-shop
-
-stop-juice-shop-web:
-	docker stop juice-shop
