@@ -19,6 +19,7 @@
     "MYSQL_DATABASE": "ctfd",
     "PRODUCTION": "true",
     "DATABASE_URL": "mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd",
+    "CTFD": "true",
     "CTFD_HOST": "http://localhost:8007",
     "ROLE": "master",
     "CTFD_CONFIG": "/copas-docker/game_utils/ctfd/ctfd_blank_backup.zip",
