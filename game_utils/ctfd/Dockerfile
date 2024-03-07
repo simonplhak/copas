@@ -1,6 +1,6 @@
 FROM copas:latest
-RUN apt update && apt upgrade -y && \
-    apt install -y mariadb-server mariadb-client \
+RUN apt-get update && apt-get upgrade -y && \
+	apt-get install -y mariadb-server mariadb-client
 
 RUN mkdir -p /run/mysqld
 
