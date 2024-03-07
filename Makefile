@@ -42,8 +42,8 @@ run-master:
 run-player:
 	docker run \
 		--rm \
-		--name copas.player.0 \
-		-p 8004:8004 \
+		--name copas.player \
+		-p 8002:8002 \
 		-e HTTP_PORT=8002 \
 		--network=copas \
 		copas:latest
