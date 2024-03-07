@@ -19,10 +19,10 @@ RUN npm run build
 FROM ubuntu:22.04
 
 # install Python 3.10
-RUN apt update && \
-    apt install -y software-properties-common && \
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt install -y python3.10 python3-pip inetutils-ping git python3.10-venv curl vim netcat
+    apt-get install -y python3.10 python3-pip inetutils-ping git python3.10-venv curl vim netcat dnsutils
 
 # install supervisord for running multiple processes
 RUN pip install supervisor
