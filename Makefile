@@ -19,6 +19,14 @@ unlink-frontend:
 	rm templates/index.html
 	rm -r "frontend"
 
+link-ctfd:
+	pip uninstall -y ctfd-sdk
+	pip install /home/simon/Documents/bc/ctfd-sdk/dist/ctfd_sdk-0.1.0-py3-none-any.whl
+
+unlink-ctfd:
+	pip uninstall -y ctfd-sdk
+	pip install -y ctfd-sdk
+
 clear:
 	curl -X POST localhost:8000/api/-/clear/
 
@@ -30,11 +38,11 @@ run-master:
 		--rm \
 		--name copas \
 		-p 8001:8001 \
-		-v /home/simon/Documents/bc/copas/games/ctf_movie_game_night/config.yml:config.yml \
+		-v /home/simon/Documents/bc/copas/app/config.yml:/app/config.yml \
 		-e ROLE=master \
 		-e HTTP_PORT=8001 \
 		-e MASTER_HTTP_PORT=8001 \
-		--network=copas_network \
+		--network=copas \
 		copas:latest
 
 run-player:
@@ -43,7 +51,6 @@ run-player:
 		--name copas2 \
 		-p 8004:8004 \
 		-e HTTP_PORT=8004 \
-		-v /home/simon/Documents/bc/copas/games/ctf_movie_game_night/config.yml:config.yml \
 		--network=copas \
 		copas:latest
 
