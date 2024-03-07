@@ -13,10 +13,16 @@
   "runArgs": ["--network=copas"],
   "containerEnv": {
     "HTTP_PORT": "8006",
+    "HTTP_MASTER_PORT": "8006",
+    "MYSQL_USER": "ctfd",
+    "MYSQL_PASSWORD": "ctfd",
+    "MYSQL_DATABASE": "ctfd",
+    "PRODUCTION": "true",
+    "DATABASE_URL": "mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd",
+    "CTFD_HOST": "http://localhost:8007",
     "ROLE": "master",
-    "CTFD_PORT": "8007",
-    "CTFD_CONFIG": "/copas-docker/games/owasp_juice_shop/owasp_config.zip",
-    "CTFD_ADMIN_TOKEN": "ctfd_c00f4d5832504faa924629d90f7e885db07faa03cd1deafe26e2cf05983611a4"
+    "CTFD_CONFIG": "/copas-docker/game_utils/ctfd/ctfd_blank_backup.zip",
+    "CTFD_ADMIN_TOKEN": "ctfd_9cc6c4906617986493209fcb6cbe3b82f247a6776b4dda3f114d11dc7aba7c81"
   },
   "postCreateCommand": "cd .devcontainer && ./post_create.sh",
 }

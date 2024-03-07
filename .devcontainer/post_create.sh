@@ -8,3 +8,4 @@ cd /copas-docker/backend && python3.10 -m venv docker_env && source docker_env/b
 mkdir -p /run/mysqld
 git clone https://github.com/CTFd/CTFd.git /ctfd
 cd /ctfd && python3.10 -m venv env && source env/bin/activate && pip install -r requirements.txt && deactivate
+sh /copas-docker/game_utils/ctfd.entrypoint.sh
