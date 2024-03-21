@@ -54,6 +54,7 @@ ENV MASTER_HTTP_PORT="8000"
 
 # Copy the supervisord configuration file
 COPY supervisord.conf /etc/supervisord.conf
+COPY entrypoint.sh /app/entrypoint.sh
 
 # start supervisord
-CMD supervisord -c /etc/supervisord.conf
+CMD sh /app/entrypoint.sh
