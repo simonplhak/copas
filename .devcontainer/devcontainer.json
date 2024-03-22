@@ -13,7 +13,7 @@
   "runArgs": ["--network=copas"],
   "containerEnv": {
     "HTTP_PORT": "8006",
-    "HTTP_MASTER_PORT": "8006",
+    "MASTER_HTTP_PORT": "8006",
     "MYSQL_USER": "ctfd",
     "MYSQL_PASSWORD": "ctfd",
     "MYSQL_DATABASE": "ctfd",
@@ -21,6 +21,7 @@
     "DATABASE_URL": "mysql+pymysql://ctfd:ctfd@localhost:3306/ctfd",
     "CTFD": "true",
     "CTFD_HOST": "http://localhost:8007",
+    "CTFD_PORT": "8007",
     "ROLE": "master",
     "CTFD_CONFIG": "/copas-docker/game_utils/ctfd/ctfd_blank_backup.zip",
     "CTFD_ADMIN_TOKEN": "ctfd_9cc6c4906617986493209fcb6cbe3b82f247a6776b4dda3f114d11dc7aba7c81"
