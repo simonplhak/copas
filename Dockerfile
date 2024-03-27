@@ -22,10 +22,16 @@ FROM ubuntu:22.04
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
-    apt-get install -y python3.10 python3-pip inetutils-ping git python3.10-venv curl vim netcat dnsutils
+    apt-get install -y python3.10 python3-pip inetutils-ping git python3.10-venv curl vim netcat dnsutils wget
 
 # install supervisord for running multiple processes
 RUN pip install supervisor
+
+# install snoopy for logging commands
+RUN wget -O install-snoopy.sh https://github.com/a2o/snoopy/raw/install/install/install-snoopy.sh && \
+	chmod 755 install-snoopy.sh && \
+	./install-snoopy.sh stable && \
+    rm install-snoopy.sh
 
 #It creates a working directory(app) for the Docker image and container
 WORKDIR /app
@@ -55,6 +61,7 @@ ENV MASTER_HTTP_PORT="8000"
 # Copy the supervisord configuration file
 COPY supervisord.conf /etc/supervisord.conf
 COPY entrypoint.sh /app/entrypoint.sh
+COPY snoopy.ini /etc/snoopy.ini
 
 # start supervisord
 CMD sh /app/entrypoint.sh
