@@ -15,10 +15,10 @@ teams:
 services:
   - name: movie_web
     run: "supervisorctl start movie_web"
-    port: 8003
+    port: 8080
   - name: game_web
     run: "supervisorctl start game_web"
-    port: 8003
+    port: 8080
 
 events:
   - name: create_movie_challenge
