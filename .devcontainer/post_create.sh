@@ -9,3 +9,5 @@ mkdir -p /run/mysqld
 git clone https://github.com/CTFd/CTFd.git /ctfd
 cd /ctfd && python3.10 -m venv env && source env/bin/activate && pip install -r requirements.txt && deactivate
 sh /copas-docker/game_utils/ctfd/ctfd.entrypoint.sh
+echo "secret" > /etc/secret_token.txt
+echo "password" > /etc/password.txt
