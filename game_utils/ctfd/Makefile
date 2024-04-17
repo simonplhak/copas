@@ -5,13 +5,25 @@ run:
 	docker run \
 		--rm \
 		--name copas.ctfd \
-		-p 8004:8004 \
-		-p 8005:8005 \
+		-p 8001:8001 \
+		-p 8002:8002 \
 		-v /home/simon/Documents/bc/copas/backend/config.yml:/app/config.yml \
-		-v /home/simon/Documents/bc/copas/games_utils/ctfd/ctfd_blank_backup.zip:/ctfd/ctfd_backup.zip \
-		-e ROLE=master \
-		-e HTTP_PORT=8004 \
-		-e CTFD_PORT=8005 \
-		-e CTFD_CONFIG=/ctfd/ctfd_backup.zip \
-		-e CTFD_ADMIN_TOKEN=ctfd_9cc6c4906617986493209fcb6cbe3b82f247a6776b4dda3f114d11dc7aba7c81 \
+		-e HTTP_PORT=8001 \
+		-e CTFD_PORT=8002 \
 		copas.ctfd:latest
+
+
+store-token:
+	@if [ -z "$$TOKEN" ]; then \
+		echo "No argument provided. Usage: make store-token TOKEN='<token>'"; \
+		exit 1; \
+	fi
+	@docker exec -it copas.ctfd sh -c "echo $$TOKEN > /etc/ctfd.secret"
+
+
+store-image:
+	@if [ -z "$$NAME" ]; then \
+		echo "No argument provided. Usage: make store-image NAME='<name>'"; \
+		exit 1; \
+	fi
+	docker commit copas.ctfd ${NAME}
