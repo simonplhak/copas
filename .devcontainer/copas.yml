@@ -51,5 +51,4 @@ windows:
   - ctfd:
       layout: even-horizontal
       panes:
-        - mariadbd --user=root
         - cd /ctfd && source env/bin/activate && gunicorn wsgi:app --bind "0.0.0.0:$CTFD_PORT" --chdir /ctfd
