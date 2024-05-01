@@ -42,7 +42,7 @@ RUN pip install poetry==1.3.2
 COPY backend/poetry.lock backend/pyproject.toml /app/
 
 #Turn of creation of virtualenv(docker is already isolated) and install the framework and the dependencies
-RUN poetry config virtualenvs.create false && poetry install
+RUN poetry config virtualenvs.create false && poetry install --without test,dev
 
 #Copies application into docker image
 COPY /backend/ /app
