@@ -8,18 +8,14 @@
     "pythonPath": "/usr/bin/python3.10"
   },
   "workspaceFolder": "/copas-docker",
-  "remoteUser": "vscode",
-  "forwardPorts": [8006, 8007, 8009, 8010, 8080],
+  "forwardPorts": [8006, 8007, 8008, 8009, 8010, 8080],
   "runArgs": ["--network=copas"],
   "containerEnv": {
     "HTTP_PORT": "8006",
     "MASTER_HTTP_PORT": "8006",
-    "PRODUCTION": "true",
-    "CTFD": "true",
     "CTFD_HOST": "http://localhost:8007",
     "CTFD_PORT": "8007",
     "ROLE": "master",
-    "CTFD_ADMIN_TOKEN": "ctfd_9cc6c4906617986493209fcb6cbe3b82f247a6776b4dda3f114d11dc7aba7c81"
   },
   "postCreateCommand": "cd .devcontainer && ./post_create.sh",
 }

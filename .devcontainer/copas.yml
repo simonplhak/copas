@@ -48,7 +48,4 @@ windows:
       # synchronize: after
       panes:
         - cd backend && source docker_env/bin/activate && uvicorn app.main:app --host 0.0.0.0 --port $HTTP_PORT --reload
-  - ctfd:
-      layout: even-horizontal
-      panes:
         - cd /ctfd && source env/bin/activate && gunicorn wsgi:app --bind "0.0.0.0:$CTFD_PORT" --chdir /ctfd
