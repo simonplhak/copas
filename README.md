@@ -75,6 +75,40 @@ ENV ROLE=master
 
 ## Config
 
+In the CoPAS platform, game design revolves around a YAML configuration file that organizes and assigns roles essential
+to the game's operation. This file creates an immersive scenario for players, benefiting the training purpose. The
+configuration includes sections such as master, teams, services, infrastructure, and events.
+
+### Master
+
+Outlines unique services specific to the game organizer, dictating infrastructure elements that run exclusively
+on their machine for efficient game organization and coordination.
+
+### Infrastructure
+
+Illustrates the fundamental groundwork required across the game environment, providing essential
+instructions for setting up each agent within the CoPA system, including DNS setup and IP tables.
+
+### Teams
+
+Structures the multiplayer aspect, defining teams and diverse roles within each team, such as players executing
+specific tasks or managing specific services.
+
+### Services
+
+Details specific services corresponding to various roles in a game, allowing for resource optimization and
+consistency. Each service requires defined parameters like name, run command, and operating port.
+To specify and start a service you can enhance [supervisord](http://supervisord.org/) which is incorporated into
+the `ctf_copas`.
+
+### Events Configuration
+
+Events can be used to add dynamic to the game. They can be triggered at the beginning of the game or after a certain
+time. More in [Events](#events).
+
+Understanding these components is crucial for a comprehensive setup and coordination of roles and services, aligning
+with the unique dynamics and requirements of each cybersecurity or infrastructure simulation.
+
 ```yaml
 infrastructure:
   dns: <true|false>
@@ -102,54 +136,101 @@ events:
 
 ## Events
 
+In the CoPAS gaming scenario, 'events' enhance the training experience by adding dynamism and engagement. These events
+are Python functions defined in a dedicated events.py file, allowing for versatile gameplay dynamics. The 'events'
+section in the configuration structure lets game designers systematically specify events through critical properties
+like name and triggering conditions. There are two main event types: 'start' and 'time'. A 'start' event, triggered at
+the game's beginning, serves as an initial activator. A 'time' event adds interactivity to the gameplay, requiring a '
+timeout' parameter to specify triggering time intervals. The Python functions for these events must follow a specific
+interface.
 
 ```python
 def event_name(master: dict, teams: dict[str, dict]) -> list[dict]:
     ...
 ```
 
+When you want to use [`ctfd-api`](https://pypi.org/project/ctfd-sdk/) in your events, you need to specify ctfd admin
+token. `ctf_copas` provides access to the token via `get_ctfd_admin_token` function in the following snippet.
+
+```python
+import os
+from pathlib import Path
+from ctfd_sdk import CtfdApi
+
+CTFD = os.getenv("CTFD", "false") == "true"
+CTFD_HOST = os.getenv("CTFD_HOST", "http://localhost:8001")
+CTFD_ADMIN_TOKEN = os.getenv("CTFD_ADMIN_TOKEN")
+CTFD_ADMIN_TOKEN_FILE = Path(os.getenv("CTFD_ADMIN_TOKEN_FILE", "/etc/ctfd.secret"))
+
+
+def get_ctfd_admin_token():
+    if CTFD_ADMIN_TOKEN is not None:
+        return CTFD_ADMIN_TOKEN
+    assert (
+        CTFD_ADMIN_TOKEN_FILE.exists()
+    ), f"`CTFD_ADMIN_TOKEN not specified(inlude as env variable or in {CTFD_ADMIN_TOKEN_FILE})"
+    with open(CTFD_ADMIN_TOKEN_FILE, "r") as f:
+        return f.read().strip()
+
+
+api = CtfdApi(get_ctfd_admin_token(), CTFD_HOST)
+```
+
 ### Models
 
 ```python
 master = agent = {
-    "name": <str>,
-    "ip": <str>, # IP address of agent
-    "domain": <str>, # agent ’s domain
-    "token": <str>,
-    "team_token": <str>,
-    "role": <str>, # role assigned to agent
-    "port": <int>, # port on which runs agent base server
-    "services": list <service>, # services assigned to agent
-    "state": <up|down|unknown>, # agent’s accessibility state
+                     "name": < str >,
+"ip": < str >,  # IP address of agent
+"domain": < str >,  # agent ’s domain
+"token": < str >,
+"team_token": < str >,
+"role": < str >,  # role assigned to agent
+"port": < int >,  # port on which runs agent base server
+"services": list < service >,  # services assigned to agent
+"state": < up | down | unknown >,  # agent’s accessibility state
 }
 
 team = {
-    "name" : <str>, # type of team
-    "instance_name" : <str>, # specific team name
-    "agents" : <list[agent]>, # agents assigned to a team
-    "token" : <str>,
+           "name": < str >,  # type of team
+"instance_name": < str >,  # specific team name
+"agents": < list[agent] >,  # agents assigned to a team
+"token": < str >,
 }
 
 service = {
-    "token": <str>,
-    "name": <str>,
-    "port": <int>, # port in which service runs
-    "host": <str>, # agent ’s IP address
-    "state": <up|down|unknown>,
-    "check": <str>, # how should be service checked ( shell command )
-    "agent_token": <str>,
+              "token": < str >,
+"name": < str >,
+"port": < int >,  # port in which service runs
+"host": < str >,  # agent ’s IP address
+"state": < up | down | unknown >,
+"check": < str >,  # how should be service checked ( shell command )
+"agent_token": < str >,
 }
 
-agent_event = { 
-    "name" : "<str>",  # event name(in our case it would be `event_name`)
-    "action": <str>, 
-    "agent": <agent>
+agent_event = {
+                  "name": "<str>",  # event name(in our case it would be `event_name`)
+                  "action": < str >,
+"agent": < agent >
 }
 ```
 
 ## Export final game
 
 ## Usage
+
+## CTFd
+
+[CTFd](https://docs.ctfd.io/) is a popular platform for Capture The Flag (CTF) competitions that allows users to
+participate in cybersecurity
+challenges, join teams, and compete for points on a real-time scoreboard. In our use-case it usually works as a scoring
+system for the game. The game is divided into challenges, which are worth a certain number of points.
+
+Challenges can be created statically before the game is build or dynamically during the game(using [events](#events)).
+
+To communicate properly with CTFd, you need to specify the CTFd admin token in the `ctf_copas` app. Token can be created
+directly in CTFd app(Settings -> Access Token -> Generate Access Token) and stored in the `ctf_copas` app(CTFd ->
+token).
 
 ## Infrastructure
 
