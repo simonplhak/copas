@@ -22,3 +22,5 @@ frontend/.env
 frontend/.git
 backend/.idea
 backend/*.log
+Makefile
+README.md

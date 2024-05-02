@@ -27,6 +27,20 @@ clear:
 build:
 	docker build . -t copas:latest
 
+build-ctfd:
+	docker build game_utils/ctfd -t copas.ctfd:latest -f game_utils/ctfd/Dockerfile
+
+run-ctfd:
+	docker run \
+		--rm \
+		--name copas.ctfd \
+		-p 8001:8001 \
+		-p 8002:8002 \
+		-v /home/simon/Documents/bc/copas/backend/config.yml:/app/config.yml \
+		-e HTTP_PORT=8001 \
+		-e CTFD_PORT=8002 \
+		copas.ctfd:latest
+
 run-master:
 	docker run \
 		--rm \
