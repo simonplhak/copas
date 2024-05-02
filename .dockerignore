@@ -16,6 +16,8 @@ backend/service_state_storage.json
 backend/dynamic_settings.json
 backend/.gitlab-ci.yml
 backend/.git
+backend/.idea
+backend/app/tests
 frontend/out
 frontend/node_modules
 frontend/.env
