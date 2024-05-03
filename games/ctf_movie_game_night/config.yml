@@ -1,3 +1,6 @@
+infrastructure:
+  dns: true
+
 teams:
   - name: movie
     roles:

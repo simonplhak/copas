@@ -29,3 +29,6 @@ run-master:
 
 stop:
 	docker stop copas.web_protocol
+
+commit-master:
+	docker commit copas.movie_game.master copas.movie_game.master.final:latest
