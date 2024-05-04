@@ -15,8 +15,8 @@ run-master:
 		copas.ctfd.owasp_juice_shop:latest
 
 
-build-player:
-	docker build . -t copas:latest
+create-juice-shop-import:
+	juice-shop-ctf -c owasp_config.yml
 
 run-player:
 	docker run \
