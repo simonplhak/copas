@@ -1,6 +1,8 @@
 VERSION ?= latest
 current_dir := $(shell pwd)
 NAME ?= player0
+FINAL_TAG:=registry.gitlab.com/plhak.s/copas/ctf_copas
+FINAL_CTFD_TAG:=registry.gitlab.com/plhak.s/copas/ctf_copas.ctfd
 
 update:
 	git submodule update --remote --recursive
@@ -27,7 +29,7 @@ clear:
 build:
 	docker build . -t copas:latest
 
-build-ctfd:
+build-ctfd: build
 	docker build game_utils/ctfd -t copas.ctfd:latest -f game_utils/ctfd/Dockerfile
 
 run-ctfd:
@@ -76,3 +78,12 @@ build-frontend:
 	export PRODUCTION=true
 	cd frontend && npm run build
 	export PRODUCTION=false
+
+
+export:
+	docker tag copas $(FINAL_TAG)
+	docker push $(FINAL_TAG)
+
+export-ctfd:
+	docker tag copas.ctfd $(FINAL_TAG)
+	docker push $(FINAL_TAG)
