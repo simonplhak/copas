@@ -1,3 +1,6 @@
+FINAL_TAG_PLAYER:=registry.gitlab.com/plhak.s/copas/movie_game.player
+FINAL_TAG_MASTER:=registry.gitlab.com/plhak.s/copas/movie_game.master
+
 build-player:
 	docker build . --tag copas.movie_game.player:latest -f player.Dockerfile
 
@@ -30,5 +33,10 @@ run-master:
 stop:
 	docker stop copas.web_protocol
 
-commit-master:
-	docker commit copas.movie_game.master copas.movie_game.master.final:latest
+export-master:
+	docker tag copas.movie_game.master $(FINAL_TAG_MASTER)
+	docker push $(FINAL_TAG_MASTER)
+
+export-player:
+	docker tag copas.movie_game.player $(FINAL_TAG_PLAYER)
+	docker push $(FINAL_TAG_PLAYER)

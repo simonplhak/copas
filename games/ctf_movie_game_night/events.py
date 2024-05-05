@@ -16,7 +16,7 @@ def get_ctfd_admin_token():
         return CTFD_ADMIN_TOKEN
     assert (
         CTFD_ADMIN_TOKEN_FILE.exists()
-    ), f"`CTFD_ADMIN_TOKEN not specified(inlude as env variable or in {CTFD_ADMIN_TOKEN_FILE})"
+    ), f"`CTFD_ADMIN_TOKEN not specified(include as env variable or in {CTFD_ADMIN_TOKEN_FILE})"
     with open(CTFD_ADMIN_TOKEN_FILE, "r") as f:
         return f.read().strip()
 
@@ -41,7 +41,7 @@ def create_movie_challenge(master: dict, teams: dict[str, dict]) -> list[dict]:
             api.create_flag("movie", f'{agent["token"]}_flag', flag)
             events.append(
                 {
-                    "action": f'echo "{flag}" > /flag.txt',
+                    "action": f'echo "{flag}" > /workdir/flag.txt && chown steve:steve /workdir/flag.txt',
                     "agent": agent,
                     "name": "create_movie_challenge",
                 }
@@ -63,7 +63,7 @@ def create_game_challenge(master: dict, teams: dict[str, dict]) -> list[dict]:
             api.create_flag("movie", f'{agent["token"]}_flag', flag)
             events.append(
                 {
-                    "action": f'echo "{flag}" > /flag.txt',
+                    "action": f'echo "{flag}" > /workdir/flag.txt && chown steve:steve /workdir/flag.txt',
                     "agent": agent,
                     "name": "create_game_challenge",
                 }
