@@ -1,0 +1,20 @@
+infrastructure:
+  dns: true
+
+master:
+  services:
+    - level_one
+    - level_two
+
+teams:
+  - name: attackers
+    roles:
+      - name: attacker
+
+services:
+  - name: level_one
+    run: "supervisorctl start level_one"
+    port: 8080
+  - name: level_two
+    run: "supervisorctl start level_two"
+    port: 8081
