@@ -4,15 +4,10 @@ master:
 
 teams:
   - name: players
-    size: 1
     roles:
       - name: player
-        see:
-          - master
 
 services:
   - name: juice-shop
     port: 3000
-
-  - name: rootthebox
-    port: 3000
+    run: "supervisorctl start owasp_juice_shop"

@@ -1,7 +1,10 @@
 FINAL_TAG:=registry.gitlab.com/plhak.s/copas/owasp_juice_shop.master
 
-build:
+build-all:
 	cd ../.. && make build-ctfd
+	docker build . -t copas.ctfd.owasp_juice_shop:latest -f master.Dockerfile
+
+build:
 	docker build . -t copas.ctfd.owasp_juice_shop:latest -f master.Dockerfile
 
 run-master:
