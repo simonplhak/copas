@@ -1,4 +1,5 @@
 import os
+import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
 
@@ -50,7 +51,7 @@ class RateLimitedHTTPRequestHandler(BaseHTTPRequestHandler):
         if MAX_REQUESTS_PER_SECOND is not None:
             _request_count = update_request_count()
             if _request_count > MAX_REQUESTS_PER_SECOND:
-                raise Exception("Oh no, they killed me!")
+                sys.exit(1)
 
         self.send_response(200)
         self.end_headers()

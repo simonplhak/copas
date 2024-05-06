@@ -20,7 +20,7 @@ import threading
 
 def send_get_request():
     while True:
-        requests.get('http://localhost:8000')
+        requests.get('http://master:8080')
 
 
 def main():
@@ -45,9 +45,8 @@ import time
 
 if __name__ == "__main__":
     while True:
-        response = requests.get("http://localhost:8081")
+        response = requests.get("http://master:8081")
         print(response.text)
-        time.sleep(0.25)  # Wait 0.25 seconds between requests
-
+        time.sleep(0.25)
 ```
 

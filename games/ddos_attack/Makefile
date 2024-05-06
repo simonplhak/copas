@@ -1,7 +1,10 @@
 FINAL_TAG:=registry.gitlab.com/plhak.s/copas/ddos_attack.master
 
-build-master:
+build-master-all:
 	cd ../.. && make build
+	docker build . --tag copas.ddos_attack.master:latest -f master.Dockerfile
+
+build-master:
 	docker build . --tag copas.ddos_attack.master:latest -f master.Dockerfile
 
 run-master:
