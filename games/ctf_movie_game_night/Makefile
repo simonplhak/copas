@@ -14,6 +14,15 @@ run-player:
 		--network=copas \
 		copas.movie_game.player:latest
 
+run-player-global:
+	docker run \
+		--rm \
+		--name copas.movie_game.player \
+		-p 8000:8000 \
+		-p 8080:8080 \
+		copas.movie_game.player:latest
+
+
 build-master:
 	docker build . --tag copas.movie_game.master:latest -f master.Dockerfile
 
@@ -26,8 +35,16 @@ run-master:
 		-e HTTP_PORT=8020 \
 		-e MASTER_HTTP_PORT=8020 \
 		-e CTFD_PORT=8021 \
-		-e CTFD_HOST=http://localhost:8021 \
 		--network=copas \
+		copas.movie_game.master:latest
+
+run-master-global:
+	docker run \
+		--rm \
+		--name copas.movie_game.master \
+		-p 8000:8000 \
+		-p 8001:8001 \
+		--net=host \
 		copas.movie_game.master:latest
 
 stop:

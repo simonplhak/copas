@@ -60,7 +60,7 @@ def create_game_challenge(master: dict, teams: dict[str, dict]) -> list[dict]:
             if agent["role"] != "game_main":
                 continue
             flag = _generate_flag()
-            api.create_flag("movie", f'{agent["token"]}_flag', flag)
+            api.create_flag("game", f'{agent["token"]}_flag', flag)
             events.append(
                 {
                     "action": f'echo "{flag}" > /workdir/flag.txt && chown steve:steve /workdir/flag.txt',
@@ -84,7 +84,7 @@ def update_movie_flag(master: dict, teams: dict[str, dict]) -> list[dict]:
             api.update_flag(f'{agent["token"]}_flag', flag)
             events.append(
                 {
-                    "action": f'echo "{flag}" > /flag.txt',
+                    "action": f'echo "{flag}" > /workdir/flag.txt && chown steve:steve /workdir/flag.txt',
                     "agent": agent,
                     "name": "update_movie_flag",
                 }
@@ -105,7 +105,7 @@ def update_game_flag(master: dict, teams: dict[str, dict]) -> list[dict]:
             api.update_flag(f'{["agent"]}_flag', flag)
             events.append(
                 {
-                    "action": f'echo "{flag}" > /flag.txt',
+                    "action": f'echo "{flag}" > /workdir/flag.txt && chown steve:steve /workdir/flag.txt',
                     "agent": agent,
                     "name": "update_game_flag",
                 }
