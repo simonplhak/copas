@@ -1,11 +1,9 @@
-master:
-  services:
-    - juice-shop
-
 teams:
   - name: players
     roles:
       - name: player
+        services:
+          - juice-shop
 
 services:
   - name: juice-shop

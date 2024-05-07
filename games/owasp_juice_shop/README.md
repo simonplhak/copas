@@ -8,6 +8,8 @@ ALl commands must be run from the root of the repository.
 
 ### Master
 
+Master with CTFd.
+
 ```bash
 make build-master
 make run-master
@@ -19,12 +21,13 @@ make run-master
 4. Go to CTFd -> open CTFd -> sign up as admin -> create access token -> store access token in `ctf_copas` app
 5. Go to CTFd -> open CTFd -> admin panel -> config -> backup -> import csv and import
    OWASP_Juice_Shop.2024-05-04.CTFd.csv
-6. `make commit`
-7. `make export`
+6. `make commit-master`
+7. `make export-master`
 
 ### Player
 
-```bash
-make run-player
-```
+Each player is running its own instance of Juice Shop.
+
+1. `make build-player`
+2. `make export-player`
 
