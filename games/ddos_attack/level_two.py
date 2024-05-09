@@ -43,16 +43,15 @@ class RateLimitedHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         client_address = self.client_address[0]
         client_request_count = update_client_request_count(client_address)
+        if MAX_REQUESTS_PER_SECOND is not None:
+            _request_count = update_request_count()
+            if _request_count > MAX_REQUESTS_PER_SECOND:
+                sys.exit(1)
         if client_request_count >= RATE_LIMIT:
             self.send_response(429)  # Too Many Requests
             self.end_headers()
             self.wfile.write(b"Too Many Requests.")
             return
-        if MAX_REQUESTS_PER_SECOND is not None:
-            _request_count = update_request_count()
-            if _request_count > MAX_REQUESTS_PER_SECOND:
-                sys.exit(1)
-
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"Hello, world!")

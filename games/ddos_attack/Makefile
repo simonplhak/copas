@@ -22,6 +22,18 @@ run-master:
 		--network=copas \
 		copas.ddos_attack.master:latest
 
+run-master-global:
+	docker run \
+		--rm \
+		--name copas.ddos_attack.master \
+		-p 8000:8000 \
+		-p 8080:8080 \
+		-p 8081:8081 \
+		-e L1_MAX_REQUESTS_PER_SECOND=10 \
+		-e L2_MAX_REQUESTS_PER_SECOND=10 \
+		--net=host \
+		copas.ddos_attack.master:latest
+
 
 run-player:
 	docker run \
