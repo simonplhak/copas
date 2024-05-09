@@ -5,8 +5,8 @@ from pathlib import Path
 
 from ctfd_sdk import CtfdApi
 
-CTFD = os.getenv("CTFD", "false") == "true"
-CTFD_HOST = os.getenv("CTFD_HOST", "http://localhost:8001")
+CTFD_PORT = os.getenv("CTFD_PORT", 8001)
+CTFD_HOST = f"localhost:{CTFD_PORT}"
 CTFD_ADMIN_TOKEN = os.getenv("CTFD_ADMIN_TOKEN")
 CTFD_ADMIN_TOKEN_FILE = Path(os.getenv("CTFD_ADMIN_TOKEN_FILE", "/etc/ctfd.secret"))
 
