@@ -11,6 +11,7 @@ simplifying game development and game management.
 ## Run locally
 
 ```shell
+cd backend
 python3 -m venv env
 source env/bin/activate
 pip install poetry==1.3.2
@@ -18,7 +19,17 @@ poetry install
 uvicorn app.main:app --reload
 ```
 
+## Run dev frontend
+
+```shell
+cd frontend
+npm install
+npm run dev
+```
+
 ## Run with devcontainer
+
+Firstly, you need to create a docker network to enable communication between containers and simulate a real environment.
 
 ```shell
 # create docker network to enable communication between containers and simulate real environment
@@ -27,7 +38,7 @@ docker network create copas
 
 Most popular IDEs support devcontainer. Just open the project in your IDE and it will ask you to open it in
 devcontainer.
-Otherwise you can use [cli tool](https://github.com/devcontainers/cli).
+Otherwise, you can use [cli tool](https://github.com/devcontainers/cli).
 
 ## Run with docker
 
@@ -134,6 +145,22 @@ events:
     timeout: optional <int>
 ```
 
+### Further configuration
+
+Project offers setting optional environmental variables to configure the game.
+
+- `LOG_DIR`: location where will be stored log file
+- `EVENTS_FILE`: where should template look for event.py file
+- `PRODUCTION`: if set to `true` it will run the app in production mode
+- `DEBUG`: if set to `true` it will run the app in debug mode
+- `CONFIG`: location where should template look for config file
+- `ROLE`: denoting that application should run under the master (`ROLE=master`)
+- `HTTP_PORT`: port where the app should run
+- `SERVICE_CHECK_INTERNAL`: interval in seconds for checking services
+- `PING_TIMEOUT`: timeout in seconds for checking agents state
+- `SNOOPY_LOG_FILE`: location where should be stored snoopy log file
+- `CTFD_PORT`: port where CTFd should run
+
 ## Events
 
 In the CoPAS gaming scenario, 'events' enhance the training experience by adding dynamism and engagement. These events
@@ -219,6 +246,14 @@ agent_event = {
 
 ## Usage
 
+When the game designer exports the game, the game organizer (master) runs the docker image with at least port 8000 open.
+The master then accesses the application UI, provides their name, and if the game has a CTFd framework, they create an
+access token. Players are given instructions on how to run the game and introduce themselves to the master via the UI.
+They provide their name and the master's IP address, which can be found on the Master page. The game includes a chat
+feature for players to share progress and cooperate. The master manages the game on the Master page, where they can
+create teams, assign agents, initialize infrastructure and services, and start the game. Players can view team and
+agent/service status on the Overview page.
+
 ## CTFd
 
 [CTFd](https://docs.ctfd.io/) is a popular platform for Capture The Flag (CTF) competitions that allows users to
@@ -234,8 +269,21 @@ token).
 
 ## Infrastructure
 
+The CoPAS-based system architecture consists of two main components: base and master. The base component forms the
+backbone of every participant's setup and handles tasks such as connecting to the master, running a front end, managing
+requests from the master, and logging terminal commands. The master component is operated solely on the game organizer's
+machine and oversees game setup, monitors progression, facilitates chat, and manages game-based events. It also
+establishes the game infrastructure. Each machine, or agent, hosts a specific set of services corresponding to their
+role within the gaming infrastructure. The master can also operate the optional CTFd framework, which provides a scoring
+system for the games.
+
 ![picture](images/components.png)
 
 ## ERD
+
+The Entity-Relationship Diagram (ERD) of our system is based on five key entities: Team, Agent, Service, Chat, and
+ChatMessage. Each Agent is assigned to a Team at the game's onset, and the Agent entity has relationships with Service,
+Chat, and ChatMessage entities. The Service entity represents the services an agent is responsible for, while the Chat
+and ChatMessage entities implement the chat functionality for real-time communication among Agents
 
 ![picture](images/erd.png)
