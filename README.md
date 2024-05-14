@@ -52,6 +52,12 @@ make run-master
 
 More details in [Makefile](Makefile).
 
+## Test backend
+
+```shell
+pytest backend/app/tests
+```
+
 ## Create a new game
 
 1. Build a docker base image via `make build`
