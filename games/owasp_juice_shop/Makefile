@@ -31,7 +31,7 @@ run-master-export:
 		-e MASTER_HTTP_PORT=8001 \
 		-e CTFD_PORT=8002 \
 		--network=copas \
-		$(FINAL_TAG):latest
+		$(FINAL_TAG_MASTER):latest
 
 run-master-export-global:
 	docker run \
@@ -40,8 +40,7 @@ run-master-export-global:
 		-p 8000:8000 \
 		-p 8001:8001 \
 		--net=host \
-		$(FINAL_TAG):latest
-
+		$(FINAL_TAG_MASTER):latest
 
 
 create-juice-shop-import:
@@ -58,11 +57,11 @@ run-player:
 	docker run \
 		--rm \
 		--name copas.player \
-		-p 8002:8002 \
+		-p 8003:8003 \
 		-p 3000:3000 \
-		-e HTTP_PORT=8002 \
+		-e HTTP_PORT=8003 \
 		--network=copas \
-		copas:latest
+		copas.owasp_juice_shop.player:latest
 
 
 run-player-global:

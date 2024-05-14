@@ -85,8 +85,8 @@ export:
 	docker push $(FINAL_TAG)
 
 export-ctfd:
-	docker tag copas.ctfd $(FINAL_TAG)
-	docker push $(FINAL_TAG)
+	docker tag copas.ctfd $(FINAL_CTFD_TAG)
+	docker push $(FINAL_CTFD_TAG)
 
 docker-network:
 	docker network create copas

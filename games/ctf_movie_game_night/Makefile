@@ -9,8 +9,18 @@ run-player:
 		--rm \
 		--name copas.movie_game.player \
 		-p 8022:8022 \
-		-p 8081:8080 \
+		-p 8080:8080 \
 		-e HTTP_PORT=8022 \
+		--network=copas \
+		copas.movie_game.player:latest
+
+run-player-2:
+	docker run \
+		--rm \
+		--name copas.movie_game.player.1 \
+		-p 8023:8023 \
+		-p 8081:8080 \
+		-e HTTP_PORT=8023 \
 		--network=copas \
 		copas.movie_game.player:latest
 
