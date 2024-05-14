@@ -16,6 +16,7 @@ backend/service_state_storage.json
 backend/app/master/events.py
 backend/config.yml
 backend/**/__pycache__
+backend/**/.pytest_cache
 backend/.gitignore
 backend/docker_env
 backend/dynamic_settings.json
