@@ -16,7 +16,27 @@ python3 -m venv env
 source env/bin/activate
 pip install poetry==1.3.2
 poetry install
+openssl rand -base64 24 > secret.txt
 uvicorn app.main:app --reload
+```
+
+To run server successfully you need to define few variable before starting a game, usage of `.env` is recommended.
+Follows an example `.env` file used for a development.
+
+```
+ROLE=master
+DEBUG=true
+CONFIG=app/tests/resources/teams.yml
+SNOOPY_LOG_FILE=/tmp/snoopy.log
+SECRET_KEY_FILE=secret.txt
+PASSWORD_FILE=secret.txt
+```
+
+To generate dummy agents use script `generate_agents.py` in `backend/scripts` directory.
+
+```shell
+cd backend
+python -m scripts.generate_agents
 ```
 
 ## Run dev frontend
