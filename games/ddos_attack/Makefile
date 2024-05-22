@@ -11,12 +11,9 @@ run-master:
 	docker run \
 		--rm \
 		--name copas.ddos_attack.master \
-		-p 8020:8020 \
-		-p 8021:8021 \
+		-p 8000:8000 \
 		-p 8080:8080 \
 		-p 8081:8081 \
-		-e HTTP_PORT=8020 \
-		-e MASTER_HTTP_PORT=8020 \
 		-e L1_MAX_REQUESTS_PER_SECOND=10 \
 		-e L2_MAX_REQUESTS_PER_SECOND=10 \
 		--network=copas \

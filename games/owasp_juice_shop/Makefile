@@ -12,11 +12,8 @@ run-master:
 	docker run \
 		--rm \
 		--name copas.ctfd.owasp_juice_shop \
+		-p 8000:8000 \
 		-p 8001:8001 \
-		-p 8002:8002 \
-		-e HTTP_PORT=8001 \
-		-e MASTER_HTTP_PORT=8001 \
-		-e CTFD_PORT=8002 \
 		--network=copas \
 		copas.ctfd.owasp_juice_shop:latest
 
@@ -25,11 +22,8 @@ run-master-export:
 	docker run \
 		--rm \
 		--name copas.ctfd.owasp_juice_shop.export \
+		-p 8000:8000 \
 		-p 8001:8001 \
-		-p 8002:8002 \
-		-e HTTP_PORT=8001 \
-		-e MASTER_HTTP_PORT=8001 \
-		-e CTFD_PORT=8002 \
 		--network=copas \
 		$(FINAL_TAG_MASTER):latest
 

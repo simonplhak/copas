@@ -40,11 +40,8 @@ run-master:
 	docker run \
 		--rm \
 		--name copas.movie_game.master \
-		-p 8020:8020 \
-		-p 8021:8021 \
-		-e HTTP_PORT=8020 \
-		-e MASTER_HTTP_PORT=8020 \
-		-e CTFD_PORT=8021 \
+		-p 8000:8000 \
+		-p 8001:8001 \
 		--network=copas \
 		copas.movie_game.master:latest
 
